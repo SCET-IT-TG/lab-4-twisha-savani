@@ -1,4 +1,4 @@
-use movieDB
+db.getSiblingDB("movieDB")
 db.movies.insertMany([
   { 
     "title": "3 Idiots", 
