@@ -1,4 +1,8 @@
-db.getSiblingDB("movieDB")
+
+/*Part 0*/
+
+db = db.getSiblingDB("movieDB");
+
 db.movies.insertMany([
   { 
     "title": "3 Idiots", 
@@ -122,38 +126,58 @@ db.movies.insertMany([
   }
 ])
 
-db.movies.find(
-  { rating: { $gt: 8.0 } }
-).explain("executionStats")
+/*Part 1-*/
 
-db.movies.createIndex({ rating: 1 })
+db.movies.find({ rating: { $gt: 8.0 } })
+  .explain("executionStats");
 
-db.movies.find(
-  { rating: { $gt: 8.0 } }
-).explain("executionStats")
 
-db.movies.find().sort({ year: -1 }).explain("executionStats")
+
+/*Part 2*/
+
+
+db.movies.createIndex({ rating: 1 });
+
+db.movies.find({ rating: { $gt: 8.0 } })
+  .explain("executionStats");
+
+
+
+/*Part 3*/
 
 db.movies.createIndex({ year: -1 })
-
 db.movies.find().sort({ year: -1 }).explain("executionStats")
 
-db.movies.createIndex({ director: 1, year: 1 })
+
+/*Part 4*/
+
+db.movies.createIndex({ director: 1, year: 1 });
 
 db.movies.find({
   director: "S.S. Rajamouli",
   year: { $gt: 2018 }
-})
+}).explain("executionStats");
+
+
+/*---Part 5: Covered Queries ---*/
 
 db.movies.find(
   { year: { $gt: 2010 } },
   { _id: 0, year: 1 }
-).explain("executionStats")
+).explain("executionStats");
 
-db.movies.createIndex({ plot: "text" })
+
+
+/*Part 6*/
+
+
+db.movies.createIndex({ plot: "text" });
 
 db.movies.find({
   $text: { $search: "cricket gangster" }
-})
+});
 
-db.movies.getIndexes()
+
+/*Part 7*/
+
+db.movies.getIndexes();
